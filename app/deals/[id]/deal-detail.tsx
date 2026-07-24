@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { SiteHeader } from "@/components/site-header";
 import { resolveOfferUrl } from "@/lib/deals/resolve-offer-url";
 import { sortPlatforms } from "@/lib/format-platform";
@@ -261,18 +259,7 @@ export function GameOfferDetailView({ game }: { game: GameOfferDetail }) {
 
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 py-8 sm:gap-16 sm:px-6 sm:py-10">
-      <SiteHeader
-        size="sm"
-        trailing={
-          <Link
-            href="/deals"
-            className="inline-flex w-fit items-center gap-1 text-sm text-muted transition-colors duration-150 hover:text-fg"
-          >
-            <span aria-hidden>←</span>
-            All deals
-          </Link>
-        }
-      />
+      <SiteHeader size="sm" />
 
       <section className="grid items-start gap-8 lg:grid-cols-[minmax(0,28rem)_minmax(0,1fr)] lg:gap-12 xl:grid-cols-[minmax(0,32rem)_minmax(0,1fr)]">
         <GameHeroImage imageUrl={heroImageUrl} />
