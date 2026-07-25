@@ -4,6 +4,14 @@ All notable changes to Broke Gamer are documented in this file.
 
 Versions are managed by [release-please](https://github.com/googleapis/release-please) from Conventional Commits — do not bump by hand for normal releases.
 
+## [1.2.0](https://github.com/dnelband/brokegamer/compare/v1.1.0...v1.2.0) (2026-07-25)
+
+
+### Features
+
+* **images:** proxy storefront art through next/image ([ba9a9ae](https://github.com/dnelband/brokegamer/commit/ba9a9ae1a8e4dc25257fc2c12d1cb5f240732f0a))
+* **images:** proxy storefront art through next/image ([1a5caab](https://github.com/dnelband/brokegamer/commit/1a5caab376e6a1f26af778db6503880c03868d1b))
+
 ## [1.1.0](https://github.com/dnelband/gamesunder10/compare/v1.0.0...v1.1.0) (2026-07-20)
 
 
