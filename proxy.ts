@@ -12,6 +12,6 @@ export const config = {
     /*
      * Skip static assets and images; run on pages + auth routes.
      */
-    "/((?!_next/static|_next/image|favicon.ico|icon.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|api/img(?:/.*)?|favicon.ico|icon.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
