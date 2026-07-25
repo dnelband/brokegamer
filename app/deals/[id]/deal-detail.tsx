@@ -70,6 +70,7 @@ function GameHeroImage({
           fill
           priority
           fit="contain"
+          sizes="(max-width: 1024px) 100vw, 32rem"
           className="object-left"
         />
       ) : (

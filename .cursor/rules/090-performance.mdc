@@ -41,13 +41,14 @@ states, and images.
 
 ## Images
 
-- **Storefront deal art** (listing + detail) uses `DealImage` (`app/deals/deal-image.tsx`)
-  — native `<img>` with lazy loading. URLs come from cron ingestion across many
-  storefront CDNs; do not maintain a `remotePatterns` allowlist per source.
-- Fixed aspect-ratio containers prevent CLS; detail hero uses `priority` / `eager`.
-- Reserve `next/image` for assets we control (local or a single known CDN). If
-  we need optimization for storefront art later, proxy at ingestion or via a
-  dedicated route — not an ever-growing hostname list.
+- **Storefront / IGDB art** (listing, detail, wishlist) uses `DealImage`
+  (`app/deals/deal-image.tsx`) → `next/image` with `src` pointing at the
+  same-origin proxy `GET /api/img?u=<https-url>` (`app/api/img/route.ts`).
+- The proxy enforces https-only, no redirects, DNS/private-IP SSRF checks,
+  image content-types, and a max body size — so we never maintain a
+  per-storefront `remotePatterns` allowlist.
+- Fixed aspect-ratio containers prevent CLS; detail hero uses `priority`.
+- Reserve direct `next/image` (no proxy) for assets we control locally.
 
 ## Before merging perf-sensitive changes
 

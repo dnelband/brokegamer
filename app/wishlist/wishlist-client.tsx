@@ -9,6 +9,7 @@ import {
   removeFromWishlistAction,
 } from "@/app/wishlist/actions";
 import { GenreTags, releaseLabel, WishlistSuggestionTitleRow } from "@/app/wishlist/wishlist-suggestion-meta";
+import { DealImage } from "@/app/deals/deal-image";
 import type { IgdbSearchCandidate } from "@/lib/enrichment/igdb-wishlist-search";
 import { igdbGamePageUrl } from "@/lib/enrichment/igdb-client";
 import type { WishlistDealMatch, WishlistItem } from "@/lib/db/wishlists";
@@ -93,11 +94,12 @@ function SearchResultItem({
     <li className="flex items-center gap-3 px-3 py-2.5">
       <div className="relative h-14 w-10 shrink-0 overflow-hidden rounded bg-surface-2">
         {candidate.coverUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element -- IGDB CDN
-          <img
+          <DealImage
             src={candidate.coverUrl}
             alt=""
-            className="h-full w-full object-cover"
+            fill
+            fit="cover"
+            sizes="40px"
           />
         ) : null}
       </div>
@@ -236,11 +238,12 @@ function WishlistGridItem({
     <li className="flex flex-col overflow-hidden rounded-lg border border-stroke bg-surface">
       <div className="relative aspect-[3/4] bg-surface-2">
         {item.coverUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element -- IGDB CDN
-          <img
+          <DealImage
             src={item.coverUrl}
             alt=""
-            className="h-full w-full object-cover"
+            fill
+            fit="cover"
+            sizes="(max-width: 768px) 50vw, 20vw"
           />
         ) : (
           <div className="flex h-full items-center justify-center text-xs text-muted">

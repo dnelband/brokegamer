@@ -1,11 +1,14 @@
 /**
- * Storefront art from ingestion — many CDNs, no stable allowlist.
- * Native img avoids next/image remotePatterns maintenance per source.
+ * Storefront / IGDB art via `/api/img` proxy + next/image.
+ * One allowlisted origin (ours); no per-CDN remotePatterns list.
  *
- * Default fill fit is `width`: always span the box width. Landscape
- * letterboxes top/bottom; taller art may clip vertically (overflow on parent).
+ * Default fill fit is `width`: cover the box. Landscape may crop;
+ * prefer `contain` on detail heroes when full art matters.
  */
+import Image from "next/image";
 import { clsx } from "clsx";
+
+import { proxiedImageSrc } from "@/lib/img-proxy/proxied-image-src";
 
 interface DealImageProps {
   src: string;
@@ -13,24 +16,23 @@ interface DealImageProps {
   fill?: boolean;
   priority?: boolean;
   /**
-   * `width` — fill width, letterbox or clip height (default).
-   * `contain` — full art, may letterbox sides.
+   * `width` — fill the box (object-cover).
+   * `contain` — full art, may letterbox.
    * `cover` — fill box, may crop any side.
    */
   fit?: "width" | "contain" | "cover";
   className?: string;
+  sizes?: string;
 }
 
-function fillClasses(fit: NonNullable<DealImageProps["fit"]>): string {
+function fitClass(fit: NonNullable<DealImageProps["fit"]>): string {
   switch (fit) {
     case "contain":
-      return "absolute inset-0 h-full w-full object-contain";
+      return "object-contain";
     case "cover":
-      return "absolute inset-0 h-full w-full object-cover";
     case "width":
     default:
-      // Width-locked; vertically centered. Parent must overflow-hidden.
-      return "absolute top-1/2 left-0 w-full -translate-y-1/2";
+      return "object-cover";
   }
 }
 
@@ -41,16 +43,32 @@ export function DealImage({
   priority = false,
   fit = "width",
   className,
+  sizes = "(max-width: 768px) 50vw, 25vw",
 }: DealImageProps) {
+  const proxied = proxiedImageSrc(src);
+
+  if (fill) {
+    return (
+      <Image
+        src={proxied}
+        alt={alt}
+        fill
+        priority={priority}
+        sizes={sizes}
+        className={clsx(fitClass(fit), className)}
+      />
+    );
+  }
+
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- arbitrary storefront CDNs
-    <img
-      src={src}
+    <Image
+      src={proxied}
       alt={alt}
-      loading={priority ? "eager" : "lazy"}
-      decoding="async"
-      fetchPriority={priority ? "high" : undefined}
-      className={clsx(fill && fillClasses(fit), className)}
+      width={160}
+      height={210}
+      priority={priority}
+      sizes={sizes}
+      className={clsx(fitClass(fit), className)}
     />
   );
 }

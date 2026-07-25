@@ -23,6 +23,7 @@ export default defineConfig({
         "lib/db/source-health.ts",
         "lib/db/wishlists.ts",
         "lib/deals/**/*.ts",
+        "lib/img-proxy/**/*.ts",
         "lib/sources/cheapshark/normalize.ts",
         "lib/sources/cheapshark/store-registry.ts",
         "lib/sources/cheapshark/store-url.ts",
