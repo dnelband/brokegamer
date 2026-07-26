@@ -130,6 +130,7 @@ export function normalizeXboxProduct(
     description: xboxDescription(product),
     coverUrl: imageUrl,
     screenshotUrls: [],
+    videoUrls: [],
     fetchedAt: new Date().toISOString(),
   };
 }

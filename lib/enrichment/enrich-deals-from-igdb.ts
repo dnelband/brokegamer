@@ -25,7 +25,8 @@ function needsIgdbEnrichment(deal: NormalizedDeal): boolean {
     deal.rating === null ||
     deal.description === null ||
     deal.coverUrl === null ||
-    deal.screenshotUrls.length === 0
+    deal.screenshotUrls.length === 0 ||
+    deal.videoUrls.length === 0
   );
 }
 
@@ -66,6 +67,8 @@ function mergeIgdbMetadata(
       deal.screenshotUrls.length > 0
         ? deal.screenshotUrls
         : metadata.screenshotUrls,
+    videoUrls:
+      deal.videoUrls.length > 0 ? deal.videoUrls : metadata.videoUrls,
     sourceReleaseDate: deal.sourceReleaseDate ?? metadata.releaseDate,
   };
 }

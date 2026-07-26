@@ -73,6 +73,7 @@ export function normalizeCheapsharkDeal(
     description: null,
     coverUrl: null,
     screenshotUrls: [],
+    videoUrls: [],
     fetchedAt: new Date().toISOString(),
   };
 }
