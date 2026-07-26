@@ -9,8 +9,19 @@ const CHEAPSHARK_API = "https://www.cheapshark.com/api/1.0";
 const MAX_PAGES = 10;
 const PAGE_SIZE = 60;
 
+/** CheapShark/Cloudflare reject missing or generic Node fetch User-Agents. */
+const CHEAPSHARK_USER_AGENT =
+  "BrokeGamer/1.2 (+https://github.com/dnelband/brokegamer; deal aggregator)";
+
+const cheapsharkFetchInit: RequestInit = {
+  headers: {
+    Accept: "application/json",
+    "User-Agent": CHEAPSHARK_USER_AGENT,
+  },
+};
+
 async function fetchStoreNames(): Promise<Map<string, string>> {
-  const response = await fetch(`${CHEAPSHARK_API}/stores`);
+  const response = await fetch(`${CHEAPSHARK_API}/stores`, cheapsharkFetchInit);
 
   if (!response.ok) {
     throw new Error(`CheapShark stores fetch failed: ${response.status}`);
@@ -32,7 +43,7 @@ export async function fetchDeals(): Promise<NormalizedDeal[]> {
     url.searchParams.set("pageNumber", String(page));
     url.searchParams.set("pageSize", String(PAGE_SIZE));
 
-    const response = await fetch(url);
+    const response = await fetch(url, cheapsharkFetchInit);
 
     if (!response.ok) {
       throw new Error(`CheapShark deals fetch failed: ${response.status}`);
