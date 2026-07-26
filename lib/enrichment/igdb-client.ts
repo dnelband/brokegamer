@@ -5,6 +5,7 @@ import {
 import type { GameMetadata } from "@/types/enrichment";
 
 import { getIgdbAccessToken, getIgdbClientId } from "./igdb-auth";
+import { igdbImageUrl } from "./igdb-image-url";
 
 interface IgdbExternalGame {
   game: number;
@@ -27,13 +28,6 @@ const IGDB_STEAM_SOURCE = 1;
 const IGDB_MIN_REQUEST_INTERVAL_MS = 350;
 let lastIgdbRequestAt = 0;
 let igdbRequestQueue: Promise<void> = Promise.resolve();
-
-function igdbImageUrl(path: string | undefined): string | null {
-  if (!path) {
-    return null;
-  }
-  return path.replace("t_thumb", "t_cover_big").replace("//", "https://");
-}
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => {
@@ -92,9 +86,9 @@ function mapGame(game: IgdbGame): GameMetadata {
     igdbId: game.id,
     description: game.summary ?? null,
     genres: (game.genres ?? []).map((genre) => genre.name),
-    coverUrl: igdbImageUrl(game.cover?.url),
+    coverUrl: igdbImageUrl(game.cover?.url, "t_cover_big"),
     screenshotUrls: (game.screenshots ?? [])
-      .map((shot) => igdbImageUrl(shot.url))
+      .map((shot) => igdbImageUrl(shot.url, "t_1080p"))
       .filter((url): url is string => url !== null),
     rating: game.aggregated_rating ?? null,
     releaseDate: game.first_release_date
@@ -278,7 +272,7 @@ export async function searchIgdbGames(
       igdbId: game.id,
       title: game.name as string,
       slug: game.slug ?? null,
-      coverUrl: igdbImageUrl(game.cover?.url),
+      coverUrl: igdbImageUrl(game.cover?.url, "t_cover_big"),
       releaseDate: game.first_release_date
         ? new Date(game.first_release_date * 1000).toISOString().slice(0, 10)
         : null,
