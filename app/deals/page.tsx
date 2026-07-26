@@ -121,7 +121,7 @@ async function DealsResults({
     <div className="flex flex-col gap-8">
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {games.map((game) => (
-          <li key={game.groupKey}>
+          <li key={game.groupKey} className="h-full">
             <GameOfferCard game={game} />
           </li>
         ))}

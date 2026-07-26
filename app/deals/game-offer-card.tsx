@@ -108,7 +108,7 @@ export function GameOfferCard({ game }: { game: GameOffer }) {
   const href = gameHref(game.groupKey);
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-lg border border-stroke bg-surface transition-[border-color,transform] duration-150 hover:border-muted">
+    <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-stroke bg-surface transition-[border-color,transform] duration-150 hover:border-muted">
       <div className="relative aspect-[3/4] overflow-hidden bg-surface-2">
         <Link href={href} className="absolute inset-0 block">
           {game.imageUrl ? (
@@ -132,12 +132,14 @@ export function GameOfferCard({ game }: { game: GameOffer }) {
       <div className="flex flex-1 flex-col gap-2 p-3">
         <Link
           href={href}
-          className="line-clamp-2 text-sm font-semibold leading-snug text-fg transition-colors duration-150 hover:text-accent"
+          className="line-clamp-2 min-h-[2.5rem] text-sm font-semibold leading-snug text-fg transition-colors duration-150 hover:text-accent"
         >
           {game.title}
         </Link>
 
-        <CardMetaRow game={game} lead={lead} />
+        <div className="mt-auto">
+          <CardMetaRow game={game} lead={lead} />
+        </div>
       </div>
     </article>
   );

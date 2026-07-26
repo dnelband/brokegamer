@@ -38,8 +38,10 @@ a real source of bugs (wrong edition, wrong game entirely) we'd rather not have.
   to batch IGDB lookups and merge onto deals before upsert. Copy genres, rating,
   description, cover, screenshots, and release date (when source lacks one).
 - If source already set a field, do not overwrite with IGDB on upsert.
-- Lookup order: Steam `steamAppId` → PSN `externalStoreUid` / product id → exact
-  title match as last resort.
+- Lookup order: Steam `steamAppId` → PSN `externalStoreUid` / product id →
+  canonical title match as last resort (`canonicalizeWishlistMatchTitle` /
+  `stripStorefrontTitleNoise` in `lib/deal-utils.ts` — same conservative
+  edition + PSN platform rules as wishlist matching).
 - Wishlist / non-deal search uses `lib/enrichment/igdb-wishlist-search.ts`
   (live IGDB at request time with Next `use cache`), not deal-row snapshots.
 
