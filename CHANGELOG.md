@@ -4,6 +4,13 @@ All notable changes to Broke Gamer are documented in this file.
 
 Versions are managed by [release-please](https://github.com/googleapis/release-please) from Conventional Commits — do not bump by hand for normal releases.
 
+## [1.2.1](https://github.com/dnelband/brokegamer/compare/v1.2.0...v1.2.1) (2026-07-26)
+
+
+### Bug Fixes
+
+* **enrichment:** harden IGDB title matching for about/screenshots ([#19](https://github.com/dnelband/brokegamer/issues/19)) ([00eafa3](https://github.com/dnelband/brokegamer/commit/00eafa3ec4bb8678d21128302d98e3c39f60cd56))
+
 ## [1.2.0](https://github.com/dnelband/brokegamer/compare/v1.1.0...v1.2.0) (2026-07-25)
 
 
