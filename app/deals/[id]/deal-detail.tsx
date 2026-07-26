@@ -5,6 +5,7 @@ import type { GameOfferDetail } from "@/types/deal";
 
 import { DealImage } from "../deal-image";
 import { DealRating } from "../deal-rating";
+import { DealMediaGallery } from "./deal-media-gallery";
 
 function discountPercent(price: number, original: number): number | null {
   if (original <= price || original <= 0) {
@@ -229,34 +230,11 @@ function AboutSection({ game }: { game: GameOfferDetail }) {
   );
 }
 
-function ScreenshotsSection({ game }: { game: GameOfferDetail }) {
-  if (game.screenshotUrls.length === 0) {
-    return null;
-  }
-
-  return (
-    <section className="flex flex-col gap-4">
-      <h2 className="font-display text-xl font-semibold text-fg">
-        Screenshots
-      </h2>
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {game.screenshotUrls.slice(0, 6).map((url) => (
-          <li
-            key={url}
-            className="relative aspect-video overflow-hidden rounded-lg bg-surface-2"
-          >
-            <DealImage src={url} alt="" fill />
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
-
 export function GameOfferDetailView({ game }: { game: GameOfferDetail }) {
   const lead = game.offers[0];
   const leadUrl = resolveOfferUrl(lead);
   const heroImageUrl = game.coverUrl ?? lead.imageUrl;
+  const hasGallery = game.screenshotUrls.length > 0;
 
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 py-8 sm:gap-16 sm:px-6 sm:py-10">
@@ -278,7 +256,18 @@ export function GameOfferDetailView({ game }: { game: GameOfferDetail }) {
       </section>
 
       <AboutSection game={game} />
-      <ScreenshotsSection game={game} />
+
+      {hasGallery ? (
+        <section className="flex flex-col gap-4">
+          <h2 className="font-display text-xl font-semibold text-fg">
+            Screenshots
+          </h2>
+          <DealMediaGallery
+            screenshotUrls={game.screenshotUrls}
+            title={game.title}
+          />
+        </section>
+      ) : null}
     </div>
   );
 }
