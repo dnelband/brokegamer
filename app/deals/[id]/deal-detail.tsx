@@ -234,7 +234,8 @@ export function GameOfferDetailView({ game }: { game: GameOfferDetail }) {
   const lead = game.offers[0];
   const leadUrl = resolveOfferUrl(lead);
   const heroImageUrl = game.coverUrl ?? lead.imageUrl;
-  const hasGallery = game.screenshotUrls.length > 0;
+  const hasGallery =
+    game.screenshotUrls.length > 0 || game.videoUrls.length > 0;
 
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 py-8 sm:gap-16 sm:px-6 sm:py-10">
@@ -259,11 +260,11 @@ export function GameOfferDetailView({ game }: { game: GameOfferDetail }) {
 
       {hasGallery ? (
         <section className="flex flex-col gap-4">
-          <h2 className="font-display text-xl font-semibold text-fg">
-            Screenshots
-          </h2>
+          <h2 className="font-display text-xl font-semibold text-fg">Media</h2>
           <DealMediaGallery
             screenshotUrls={game.screenshotUrls}
+            videoUrls={game.videoUrls}
+            coverUrl={heroImageUrl}
             title={game.title}
           />
         </section>

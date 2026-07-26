@@ -52,6 +52,7 @@ export const deals = pgTable(
     description: text("description"),
     coverUrl: text("cover_url"),
     screenshotUrls: text("screenshot_urls").array().notNull().default([]),
+    videoUrls: text("video_urls").array().notNull().default([]),
     fetchedAt: timestamp("fetched_at", {
       withTimezone: true,
       mode: "string",

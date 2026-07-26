@@ -127,6 +127,7 @@ function rowToDeal(row: typeof deals.$inferSelect): NormalizedDeal {
     description: row.description,
     coverUrl: row.coverUrl,
     screenshotUrls: row.screenshotUrls ?? [],
+    videoUrls: row.videoUrls ?? [],
     fetchedAt: row.fetchedAt,
   };
 }
@@ -203,6 +204,7 @@ function buildGameOfferDetail(
   const metadata =
     sorted.find((deal) => deal.description || deal.coverUrl) ?? lead;
   const screenshots = sorted.find((deal) => deal.screenshotUrls.length > 0);
+  const videos = sorted.find((deal) => deal.videoUrls.length > 0);
   const formats = new Set(sorted.map((deal) => deal.distributionFormat));
 
   return {
@@ -219,6 +221,7 @@ function buildGameOfferDetail(
     description: metadata.description,
     coverUrl: metadata.coverUrl ?? metadata.imageUrl,
     screenshotUrls: screenshots?.screenshotUrls ?? [],
+    videoUrls: videos?.videoUrls ?? [],
     sourceReleaseDate:
       sorted.reduce<string | null>((latest, deal) => {
         if (!deal.sourceReleaseDate) {
@@ -269,6 +272,7 @@ function dealValues(item: NormalizedDeal) {
     description: item.description,
     coverUrl: item.coverUrl,
     screenshotUrls: item.screenshotUrls,
+    videoUrls: item.videoUrls,
     fetchedAt: item.fetchedAt,
   };
 }
@@ -296,6 +300,7 @@ const dealConflictUpdateSet = {
   description: sql`excluded.description`,
   coverUrl: sql`excluded.cover_url`,
   screenshotUrls: sql`excluded.screenshot_urls`,
+  videoUrls: sql`excluded.video_urls`,
   fetchedAt: sql`excluded.fetched_at`,
 } as const;
 

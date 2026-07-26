@@ -31,6 +31,8 @@ export interface NormalizedDeal {
   description: string | null;
   coverUrl: string | null;
   screenshotUrls: string[];
+  /** YouTube watch URLs — IGDB snapshot at cron. */
+  videoUrls: string[];
   fetchedAt: string;
 }
 
@@ -83,6 +85,7 @@ export interface GameOfferDetail {
   description: string | null;
   coverUrl: string | null;
   screenshotUrls: string[];
+  videoUrls: string[];
   sourceReleaseDate: string | null;
   distributionFormat: DistributionFormat;
   minPriceEur: number;

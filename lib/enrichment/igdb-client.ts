@@ -22,9 +22,12 @@ interface IgdbGame {
   genres?: Array<{ name: string }>;
   cover?: { url?: string };
   screenshots?: Array<{ url?: string }>;
+  videos?: Array<{ name?: string; video_id?: string }>;
 }
 
 const IGDB_STEAM_SOURCE = 1;
+const IGDB_GAME_FIELDS =
+  "name, summary, aggregated_rating, first_release_date, genres.name, cover.url, screenshots.url, videos.name, videos.video_id";
 const IGDB_MIN_REQUEST_INTERVAL_MS = 350;
 let lastIgdbRequestAt = 0;
 let igdbRequestQueue: Promise<void> = Promise.resolve();
@@ -81,6 +84,38 @@ async function igdbPost<T>(endpoint: string, body: string): Promise<T[]> {
   return (await response.json()) as T[];
 }
 
+function youtubeWatchUrl(videoId: string): string {
+  return `https://www.youtube.com/watch?v=${videoId}`;
+}
+
+/** Prefer trailer-named videos; fall back to first YouTube id. */
+function mapVideoUrls(
+  videos: Array<{ name?: string; video_id?: string }> | undefined,
+): string[] {
+  const withIds = (videos ?? []).filter(
+    (video): video is { name?: string; video_id: string } =>
+      Boolean(video.video_id),
+  );
+  if (withIds.length === 0) {
+    return [];
+  }
+
+  const trailers = withIds.filter((video) =>
+    (video.name ?? "").toLowerCase().includes("trailer"),
+  );
+  const ordered = trailers.length > 0 ? trailers : withIds;
+  const urls: string[] = [];
+  const seen = new Set<string>();
+  for (const video of ordered) {
+    if (seen.has(video.video_id)) {
+      continue;
+    }
+    seen.add(video.video_id);
+    urls.push(youtubeWatchUrl(video.video_id));
+  }
+  return urls;
+}
+
 function mapGame(game: IgdbGame): GameMetadata {
   return {
     igdbId: game.id,
@@ -90,6 +125,7 @@ function mapGame(game: IgdbGame): GameMetadata {
     screenshotUrls: (game.screenshots ?? [])
       .map((shot) => igdbImageUrl(shot.url, "t_1080p"))
       .filter((url): url is string => url !== null),
+    videoUrls: mapVideoUrls(game.videos),
     rating: game.aggregated_rating ?? null,
     releaseDate: game.first_release_date
       ? new Date(game.first_release_date * 1000).toISOString().slice(0, 10)
@@ -108,7 +144,7 @@ async function fetchGamesByIds(gameIds: number[]): Promise<IgdbGame[]> {
 
   return igdbPost<IgdbGame>(
     "games",
-    `fields name, summary, aggregated_rating, first_release_date, genres.name, cover.url, screenshots.url; where id = (${gameIds.join(",")}); limit 500;`,
+    `fields ${IGDB_GAME_FIELDS}; where id = (${gameIds.join(",")}); limit 500;`,
   );
 }
 
@@ -191,7 +227,7 @@ export async function fetchGameMetadataByExactTitles(
     const searchQuery = stripStorefrontTitleNoise(title) || title;
     const games = await igdbPost<IgdbGame>(
       "games",
-      `search "${escapeIgdbString(searchQuery)}"; fields name, summary, aggregated_rating, first_release_date, genres.name, cover.url, screenshots.url; limit 10;`,
+      `search "${escapeIgdbString(searchQuery)}"; fields ${IGDB_GAME_FIELDS}; limit 10;`,
     );
 
     const exactMatch = games.find((game) => {

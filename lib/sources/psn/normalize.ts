@@ -95,6 +95,7 @@ export function normalizePsnProduct(product: PsnProduct): NormalizedDeal | null 
     description: null,
     coverUrl: null,
     screenshotUrls: [],
+    videoUrls: [],
     fetchedAt: new Date().toISOString(),
   };
 }
