@@ -4,6 +4,13 @@ All notable changes to Broke Gamer are documented in this file.
 
 Versions are managed by [release-please](https://github.com/googleapis/release-please) from Conventional Commits — do not bump by hand for normal releases.
 
+## [1.3.0](https://github.com/dnelband/brokegamer/compare/v1.2.1...v1.3.0) (2026-07-26)
+
+
+### Features
+
+* **deal-page:** auto-scrolling screenshot gallery ([#21](https://github.com/dnelband/brokegamer/issues/21)) ([8f5fe46](https://github.com/dnelband/brokegamer/commit/8f5fe467229e8351214ebc3e571ef94b4a38c587))
+
 ## [1.2.1](https://github.com/dnelband/brokegamer/compare/v1.2.0...v1.2.1) (2026-07-26)
 
 
