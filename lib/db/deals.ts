@@ -15,6 +15,10 @@ import {
   type DealListFilters,
 } from "@/lib/deals/filters";
 import {
+  pickHomeDeals,
+  type HomeDealPicks,
+} from "@/lib/deals/deals-of-the-day";
+import {
   groupDealsIntoOffers,
   isConsoleFamily,
   parseGroupKey,
@@ -384,6 +388,22 @@ export async function listGameOffersPage(
     pageSize: safePageSize,
     totalPages,
   };
+}
+
+const EMPTY_HOME_FILTERS: DealListFilters = {
+  q: "",
+  platforms: [],
+  genres: [],
+  minRating: null,
+  store: null,
+};
+
+/** Ranked home picks — same under-€10 catalog as browse, different sort. */
+export async function listHomeDealPicks(): Promise<HomeDealPicks> {
+  const where = and(...buildDealFilters(EMPTY_HOME_FILTERS));
+  const rows = await db.select(groupingColumns).from(deals).where(where);
+  const allGames = groupDealsIntoOffers(rows.map(rowToGroupingDeal));
+  return pickHomeDeals(allGames);
 }
 
 export async function listDealFilterOptions(): Promise<{
