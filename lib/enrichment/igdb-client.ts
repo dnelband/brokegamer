@@ -1,6 +1,6 @@
 import {
   canonicalizeWishlistMatchTitle,
-  stripStorefrontTitleNoise,
+  igdbSearchQueryFromTitle,
 } from "@/lib/deal-utils";
 import type { GameMetadata } from "@/types/enrichment";
 
@@ -224,7 +224,7 @@ export async function fetchGameMetadataByExactTitles(
 
   for (const title of titles) {
     const canonicalTitle = canonicalizeWishlistMatchTitle(title);
-    const searchQuery = stripStorefrontTitleNoise(title) || title;
+    const searchQuery = igdbSearchQueryFromTitle(title) || title.trim();
     const games = await igdbPost<IgdbGame>(
       "games",
       `search "${escapeIgdbString(searchQuery)}"; fields ${IGDB_GAME_FIELDS}; limit 10;`,

@@ -39,6 +39,19 @@ export function stripStorefrontTitleNoise(title: string): string {
 }
 
 /** Longest first so multi-word suffixes win over shorter overlaps. */
+/** Roman numerals at word boundaries → arabic (for II vs 2 style IGDB matching). */
+const ROMAN_NUMERAL_WORDS: Readonly<Record<string, string>> = {
+  ii: "2",
+  iii: "3",
+  iv: "4",
+  v: "5",
+  vi: "6",
+  vii: "7",
+  viii: "8",
+  ix: "9",
+  x: "10",
+};
+
 const MATCH_EDITION_SUFFIXES = [
   "game of the year edition",
   "digital deluxe edition",
@@ -52,6 +65,13 @@ const MATCH_EDITION_SUFFIXES = [
   "deluxe edition",
   "gold edition",
 ] as const;
+
+function normalizeRomanNumeralWords(normalized: string): string {
+  return normalized.replace(
+    /\b(ii|iii|iv|v|vi|vii|viii|ix|x)\b/giu,
+    (match) => ROMAN_NUMERAL_WORDS[match.toLowerCase()] ?? match,
+  );
+}
 
 /**
  * Base title for wishlist ↔ deal and IGDB enrichment matching.
@@ -69,7 +89,12 @@ export function canonicalizeWishlistMatchTitle(title: string): string {
     }
   }
 
-  return normalized;
+  return normalizeRomanNumeralWords(normalized);
+}
+
+/** IGDB title search query — base title without storefront/edition noise. */
+export function igdbSearchQueryFromTitle(title: string): string {
+  return canonicalizeWishlistMatchTitle(title);
 }
 
 export function wishlistTitlesMatch(a: string, b: string): boolean {

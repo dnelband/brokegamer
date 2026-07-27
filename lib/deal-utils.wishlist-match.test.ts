@@ -54,6 +54,12 @@ describe("canonicalizeWishlistMatchTitle", () => {
     ).toBe("code vein");
   });
 
+  it("normalizes roman numerals for matching", () => {
+    expect(canonicalizeWishlistMatchTitle("Assassin's Creed II")).toBe(
+      "assassins creed 2",
+    );
+  });
+
   it("strips standard edition and PS platform tags together", () => {
     expect(
       canonicalizeWishlistMatchTitle(
@@ -104,6 +110,15 @@ describe("wishlistTitlesMatch", () => {
     expect(
       wishlistTitlesMatch("Hollow Knight", "Hollow Knight Silksong"),
     ).toBe(false);
+  });
+
+  it("matches roman numerals to arabic equivalents", () => {
+    expect(wishlistTitlesMatch("Assassin's Creed II", "Assassin's Creed 2")).toBe(
+      true,
+    );
+    expect(wishlistTitlesMatch("Final Fantasy VII", "Final Fantasy 7")).toBe(
+      true,
+    );
   });
 
   it("still matches exact titles", () => {
