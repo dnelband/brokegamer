@@ -4,6 +4,18 @@ All notable changes to Broke Gamer are documented in this file.
 
 Versions are managed by [release-please](https://github.com/googleapis/release-please) from Conventional Commits — do not bump by hand for normal releases.
 
+## [1.4.0](https://github.com/dnelband/brokegamer/compare/v1.3.0...v1.4.0) (2026-07-27)
+
+
+### Features
+
+* **deal-page:** on-demand IGDB trailers in media gallery ([#24](https://github.com/dnelband/brokegamer/issues/24)) ([de3c2d0](https://github.com/dnelband/brokegamer/commit/de3c2d0ee39518bcafbb4d24152e231489a1da81))
+
+
+### Bug Fixes
+
+* **enrichment:** improve IGDB title match for missing ratings ([#27](https://github.com/dnelband/brokegamer/issues/27)) ([d1fef29](https://github.com/dnelband/brokegamer/commit/d1fef29db70df3cfbde9bb0773961999aa7ed442))
+
 ## [1.3.0](https://github.com/dnelband/brokegamer/compare/v1.2.1...v1.3.0) (2026-07-26)
 
 
