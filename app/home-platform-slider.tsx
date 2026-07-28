@@ -149,11 +149,13 @@ function PlatformDealSlider({ row }: { row: HomePlatformRow }) {
   return (
     <section className="flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-2.5">
-          <h2 className="font-display text-lg font-semibold text-fg/90 sm:text-xl">
+        <Link
+            href={platformRowHref(row.filterPlatforms)}
+            className="font-display text-lg font-semibold text-accent transition-colors hover:text-fg sm:text-xl"
+          >
             {row.label}
-          </h2>
-          <div className="flex items-center gap-1.5">
+          </Link>
+        <div className="flex items-center gap-1.5">
             <SliderNavButton
               direction="prev"
               onClick={() => scrollByCard(scrollerRef.current, -1)}
@@ -163,13 +165,6 @@ function PlatformDealSlider({ row }: { row: HomePlatformRow }) {
               onClick={() => scrollByCard(scrollerRef.current, 1)}
             />
           </div>
-        </div>
-        <Link
-          href={platformRowHref(row.filterPlatforms)}
-          className="shrink-0 text-sm font-medium text-accent transition-colors hover:text-fg"
-        >
-          See all
-        </Link>
       </div>
       <ul
         ref={scrollerRef}
