@@ -340,7 +340,7 @@ function GalleryThumbStrip({
 
   return (
     <div
-      className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]"
+      className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       role="tablist"
       aria-label="Media thumbnails"
     >

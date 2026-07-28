@@ -1,12 +1,14 @@
 import { cacheLife, cacheTag } from "next/cache";
 
 import type { DealListFilters } from "@/lib/deals/filters";
+import type { HomeDealPicks } from "@/lib/deals/deals-of-the-day";
 import type { GameOfferDetail } from "@/types/deal";
 
 import {
   getGameOfferByGroupKey,
   listDealFilterOptions,
   listGameOffersPage,
+  listHomeDealPicks,
   type GameOfferListPage,
 } from "./deals";
 
@@ -19,6 +21,17 @@ export async function getCachedGameOffersPage(
   cacheTag("deals");
   cacheLife("hours");
   return listGameOffersPage(filters, page, pageSize);
+}
+
+export async function getCachedHomeDealPicks(): Promise<HomeDealPicks> {
+  "use cache";
+  cacheTag("deals");
+  cacheLife("hours");
+  const picks = await listHomeDealPicks();
+  return {
+    dealsOfTheDay: picks.dealsOfTheDay ?? [],
+    platformRows: picks.platformRows ?? [],
+  };
 }
 
 export async function getCachedDealFilterOptions(): Promise<{

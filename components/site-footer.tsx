@@ -20,7 +20,7 @@ export function SiteFooter({ version, releases }: SiteFooterProps) {
       <footer className="border-t border-stroke">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-8 sm:flex-row sm:items-end sm:justify-between sm:px-6">
           <div className="flex flex-col gap-1">
-            <Link href="/deals" className="w-fit">
+            <Link href="/" className="w-fit">
               <BrandWordmark size="sm" />
             </Link>
             <p className="text-sm text-muted">Broke. Still gaming.</p>

@@ -185,7 +185,7 @@ async function submitSignin(
 function useLoginFormState() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const next = searchParams.get("next") ?? "/deals";
+  const next = searchParams.get("next") ?? "/";
   const urlError = searchParams.get("error");
 
   const [mode, setMode] = useState<Mode>("signin");
@@ -235,7 +235,7 @@ function useLoginFormState() {
         setMessage(errorMessage);
         return;
       }
-      router.replace(next.startsWith("/") ? next : "/deals");
+      router.replace(next.startsWith("/") ? next : "/");
       router.refresh();
     } finally {
       setPending(false);
@@ -338,7 +338,7 @@ export function LoginForm() {
   return (
     <div className="mx-auto flex w-full max-w-md flex-col gap-8 px-4 py-12 sm:px-6">
       <div className="flex flex-col gap-4">
-        <Link href="/deals" className="w-fit">
+        <Link href="/" className="w-fit">
           <BrandWordmark size="sm" />
         </Link>
         <h1 className="font-display text-3xl font-semibold tracking-tight text-fg">
@@ -353,8 +353,8 @@ export function LoginForm() {
 
       <LoginFormFields state={state} />
 
-      <Link href="/deals" className="text-sm text-muted hover:text-fg">
-        ← Back to deals
+      <Link href="/" className="text-sm text-muted hover:text-fg">
+        ← Back to home
       </Link>
     </div>
   );
