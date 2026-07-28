@@ -6,7 +6,7 @@ import type { GameOffer } from "@/types/deal";
 
 export const DEALS_OF_THE_DAY_COUNT = 3;
 /** Regular catalog cards shown per platform row on home. */
-export const HOME_PLATFORM_ROW_COUNT = 6;
+export const HOME_PLATFORM_ROW_COUNT = 8;
 
 export type HomePlatformRowId = "pc" | "playstation" | "xbox";
 

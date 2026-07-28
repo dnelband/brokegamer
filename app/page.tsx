@@ -24,7 +24,7 @@ function HomeFallback() {
         <div key={row} className="flex flex-col gap-3">
           <div className="h-6 w-28 animate-pulse rounded bg-surface-2" />
           <div className="flex gap-3 overflow-hidden">
-            {Array.from({ length: 6 }).map((_, index) => (
+            {Array.from({ length: 8 }).map((_, index) => (
               <div
                 key={index}
                 className="aspect-[3/4] w-[42%] shrink-0 animate-pulse rounded-lg bg-surface-2 sm:w-[30%] lg:w-[22%]"
@@ -42,9 +42,9 @@ function BrowseAllDealsCta() {
     <div className="flex justify-center pt-2">
       <Link
         href="/deals"
-        className="text-sm font-semibold text-accent transition-colors hover:text-fg"
+        className="inline-flex items-center justify-center rounded-md border border-accent bg-accent px-5 py-3 text-sm font-semibold text-bg transition-colors hover:border-fg hover:bg-fg"
       >
-        Browse all deals →
+        Browse all deals
       </Link>
     </div>
   );
