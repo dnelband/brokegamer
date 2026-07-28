@@ -4,6 +4,19 @@ All notable changes to Broke Gamer are documented in this file.
 
 Versions are managed by [release-please](https://github.com/googleapis/release-please) from Conventional Commits — do not bump by hand for normal releases.
 
+## [1.5.0](https://github.com/dnelband/brokegamer/compare/v1.4.0...v1.5.0) (2026-07-28)
+
+
+### Features
+
+* **home:** deals of the day landing page ([#28](https://github.com/dnelband/brokegamer/issues/28)) ([b05ab09](https://github.com/dnelband/brokegamer/commit/b05ab097a7e3524f7fc29a197102561a7fe2a69f))
+
+
+### Bug Fixes
+
+* **home:** polish platform sliders and CTA ([#31](https://github.com/dnelband/brokegamer/issues/31)) ([0988e65](https://github.com/dnelband/brokegamer/commit/0988e65536ac5622a41a6b477d7adfe0de485522))
+* **local-cron:** harden launchd runner startup ([#33](https://github.com/dnelband/brokegamer/issues/33)) ([76c21f0](https://github.com/dnelband/brokegamer/commit/76c21f0e2f32c83679e6a54537840ef66773eb3d))
+
 ## [1.4.0](https://github.com/dnelband/brokegamer/compare/v1.3.0...v1.4.0) (2026-07-27)
 
 
