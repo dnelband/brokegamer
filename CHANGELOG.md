@@ -4,6 +4,13 @@ All notable changes to Broke Gamer are documented in this file.
 
 Versions are managed by [release-please](https://github.com/googleapis/release-please) from Conventional Commits — do not bump by hand for normal releases.
 
+## [1.5.1](https://github.com/dnelband/brokegamer/compare/v1.5.0...v1.5.1) (2026-07-31)
+
+
+### Bug Fixes
+
+* **images:** cut Vercel Image Optimization transform churn ([#35](https://github.com/dnelband/brokegamer/issues/35)) ([9eb8a11](https://github.com/dnelband/brokegamer/commit/9eb8a110cba3772334685d5b016349b3aaff9e0e))
+
 ## [1.5.0](https://github.com/dnelband/brokegamer/compare/v1.4.0...v1.5.0) (2026-07-28)
 
 
