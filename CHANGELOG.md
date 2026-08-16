@@ -4,6 +4,13 @@ All notable changes to Broke Gamer are documented in this file.
 
 Versions are managed by [release-please](https://github.com/googleapis/release-please) from Conventional Commits — do not bump by hand for normal releases.
 
+## [1.5.2](https://github.com/dnelband/brokegamer/compare/v1.5.1...v1.5.2) (2026-08-16)
+
+
+### Bug Fixes
+
+* **images:** drop next/image for plain img via proxy ([#39](https://github.com/dnelband/brokegamer/issues/39)) ([ac3cf5b](https://github.com/dnelband/brokegamer/commit/ac3cf5b89b2b3ee95160152f91062f25e469445e))
+
 ## [1.5.1](https://github.com/dnelband/brokegamer/compare/v1.5.0...v1.5.1) (2026-07-31)
 
 
