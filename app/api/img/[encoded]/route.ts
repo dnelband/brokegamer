@@ -12,8 +12,7 @@ const ALLOWED_TYPES = new Set([
   "image/avif",
 ]);
 
-// Align with next.config images.minimumCacheTTL (31 days) so Vercel
-// Image Optimization does not re-transform stable deal art every day.
+// Long-lived cache for stable deal art (IGDB / storefront).
 const CACHE_CONTROL =
   "public, max-age=2678400, s-maxage=2678400, stale-while-revalidate=604800";
 

@@ -26,7 +26,7 @@ function fromBase64Url(encoded: string): string {
   return Buffer.from(base64, "base64").toString("utf8");
 }
 
-/** Same-origin proxy src for next/image (path token, no query string). */
+/** Same-origin proxy src for plain `<img>` (path token, no query string). */
 export function proxiedImageSrc(remoteUrl: string): string {
   return `/api/img/${toBase64Url(remoteUrl)}`;
 }

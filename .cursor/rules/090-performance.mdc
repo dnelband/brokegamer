@@ -42,13 +42,17 @@ states, and images.
 ## Images
 
 - **Storefront / IGDB art** (listing, detail, wishlist) uses `DealImage`
-  (`app/deals/deal-image.tsx`) → `next/image` with `src` pointing at the
-  same-origin proxy `GET /api/img?u=<https-url>` (`app/api/img/route.ts`).
+  (`app/deals/deal-image.tsx`) → plain `<img>` with `src` pointing at the
+  same-origin proxy `GET /api/img/<base64url>` (`app/api/img/[encoded]/route.ts`).
+- **Do not use `next/image` for deal/storefront art** — Vercel Image
+  Optimization quota breaks production images; we opt out on purpose.
 - The proxy enforces https-only, no redirects, DNS/private-IP SSRF checks,
   image content-types, and a max body size — so we never maintain a
   per-storefront `remotePatterns` allowlist.
-- Fixed aspect-ratio containers prevent CLS; detail hero uses `priority`.
-- Reserve direct `next/image` (no proxy) for assets we control locally.
+- Fixed aspect-ratio containers prevent CLS; detail hero may use
+  `priority` (`loading="eager"` / `fetchPriority="high"`).
+- Reserve local static assets (e.g. `icon.svg`) as normal same-origin URLs —
+  not through the remote image proxy.
 
 ## Before merging perf-sensitive changes
 
