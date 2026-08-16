@@ -1,11 +1,10 @@
 /**
- * Storefront / IGDB art via `/api/img` proxy + next/image.
- * One allowlisted origin (ours); no per-CDN remotePatterns list.
+ * Storefront / IGDB art via `/api/img` proxy + plain `<img>`.
+ * Same-origin proxy only — no Vercel Image Optimization / `next/image`.
  *
  * Default fill fit is `width`: cover the box. Landscape may crop;
  * prefer `contain` on detail heroes when full art matters.
  */
-import Image from "next/image";
 import { clsx } from "clsx";
 
 import { proxiedImageSrc } from "@/lib/img-proxy/proxied-image-src";
@@ -22,6 +21,7 @@ interface DealImageProps {
    */
   fit?: "width" | "contain" | "cover";
   className?: string;
+  /** Kept for call-site compatibility; unused without `next/image` srcset. */
   sizes?: string;
 }
 
@@ -43,32 +43,24 @@ export function DealImage({
   priority = false,
   fit = "width",
   className,
-  sizes = "(max-width: 768px) 50vw, 25vw",
 }: DealImageProps) {
   const proxied = proxiedImageSrc(src);
 
-  if (fill) {
-    return (
-      <Image
-        src={proxied}
-        alt={alt}
-        fill
-        priority={priority}
-        sizes={sizes}
-        className={clsx(fitClass(fit), className)}
-      />
-    );
-  }
-
   return (
-    <Image
+    // eslint-disable-next-line @next/next/no-img-element -- intentional: avoid Vercel Image Optimization quota
+    <img
       src={proxied}
       alt={alt}
-      width={160}
-      height={210}
-      priority={priority}
-      sizes={sizes}
-      className={clsx(fitClass(fit), className)}
+      width={fill ? undefined : 160}
+      height={fill ? undefined : 210}
+      loading={priority ? "eager" : "lazy"}
+      fetchPriority={priority ? "high" : "auto"}
+      decoding="async"
+      className={clsx(
+        fitClass(fit),
+        fill && "absolute inset-0 h-full w-full",
+        className,
+      )}
     />
   );
 }
